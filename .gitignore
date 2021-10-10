@@ -1,8 +1,3 @@
-04-webpack/exercise/node_modules/*
-04-webpack/exercise/bundler/*
-05-transform-objects/exercise/bundler/*
-05-transform-objects/exercise/node_modules/*
-06-animations/exercise/bundler/*
-06-animations/exercise/node_modules/*
-07-cameras/exercise/bundler/*
-07-cameras/exercise/node_modules/*
+*/.DS_Store
+*/node_modules/*
+*/bundler/*
