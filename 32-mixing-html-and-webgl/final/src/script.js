@@ -7,8 +7,9 @@ import { gsap } from 'gsap'
 /**
  * Loaders
  */
-let sceneReady = false
 const loadingBarElement = document.querySelector('.loading-bar')
+
+let sceneReady = false
 const loadingManager = new THREE.LoadingManager(
     // Loaded
     () =>
@@ -134,6 +135,10 @@ gltfLoader.load(
     }
 )
 
+/**
+ * Points of interest
+ */
+const raycaster = new THREE.Raycaster()
 const points = [
     {
         position: new THREE.Vector3(1.55, 0.3, - 0.6),
@@ -211,8 +216,6 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-const raycaster = new THREE.Raycaster()
-
 /**
  * Animate
  */
@@ -220,31 +223,45 @@ const tick = () =>
 {
     // Update controls
     controls.update()
+
+    // Update points only when the scene is ready
     if(sceneReady)
     {
+        // Go through each point
         for(const point of points)
         {
+            // Get 2D screen position
             const screenPosition = point.position.clone()
             screenPosition.project(camera)
     
+            // Set the raycaster
             raycaster.setFromCamera(screenPosition, camera)
             const intersects = raycaster.intersectObjects(scene.children, true)
     
+            // No intersect found
             if(intersects.length === 0)
             {
+                // Show
                 point.element.classList.add('visible')
             }
+
+            // Intersect found
             else
             {
+                // Get the distance of the intersection and the distance of the point
                 const intersectionDistance = intersects[0].distance
                 const pointDistance = point.position.distanceTo(camera.position)
     
+                // Intersection is close than the point
                 if(intersectionDistance < pointDistance)
                 {
+                    // Hide
                     point.element.classList.remove('visible')
                 }
+                // Intersection is further than the point
                 else
                 {
+                    // Show
                     point.element.classList.add('visible')
                 }
             }
