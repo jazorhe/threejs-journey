@@ -6,10 +6,8 @@
         "dev": "webpack serve --config ./bundler/webpack.dev.js"
     },
     "dependencies": {
-        "@babel/core": "^7.14.6",
-        "@babel/preset-env": "^7.14.7",
-        "babel-loader": "^8.2.2",
         "clean-webpack-plugin": "^3.0.0",
+        "colorette": "^2.0.16",
         "copy-webpack-plugin": "^9.0.1",
         "css-loader": "^5.2.6",
         "file-loader": "^6.2.0",
@@ -21,9 +19,14 @@
         "raw-loader": "^4.0.2",
         "style-loader": "^3.0.0",
         "three": "^0.130.0",
-        "webpack": "^5.41.1",
         "webpack-cli": "^4.7.2",
         "webpack-dev-server": "^3.11.2",
         "webpack-merge": "^5.8.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.15.8",
+        "@babel/preset-env": "^7.15.8",
+        "babel-loader": "^8.2.2",
+        "webpack": "^5.59.0"
     }
 }
