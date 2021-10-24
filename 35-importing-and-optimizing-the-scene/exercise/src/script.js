@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+import { RGB_ETC1_Format } from 'three'
 
 /**
  * Base
@@ -34,14 +35,43 @@ const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 /**
- * Object
+ * Textures
  */
-const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial()
+ const bakedTexture = textureLoader.load('baked.jpg')
+ bakedTexture.flipY = false
+ bakedTexture.encoding = THREE.sRGBEncoding
+
+/**
+ * Material
+ */
+// Baked material
+const bakedMaterial = new THREE.MeshBasicMaterial({ map: bakedTexture })
+const portalLightMaterial = new THREE.MeshBasicMaterial({ color: 0xFFCD54 })
+const poleLightMaterial = new THREE.MeshBasicMaterial({ color: 0xFFCD54 })
+
+/**
+ * Model
+ */
+ gltfLoader.load(
+    'portal.glb',
+    (gltf) =>
+    {
+        scene.add(gltf.scene)
+
+        // Get each object
+        const bakedMesh = gltf.scene.children.find((child) => child.name === 'baked')
+        const portalLightMesh = gltf.scene.children.find((child) => child.name === 'portalLight')
+        const poleLightAMesh = gltf.scene.children.find((child) => child.name === 'poleLightA')
+        const poleLightBMesh = gltf.scene.children.find((child) => child.name === 'poleLightB')
+
+        // Apply materials
+        bakedMesh.material = bakedMaterial
+        portalLightMesh.material = portalLightMaterial
+        poleLightAMesh.material = poleLightMaterial
+        poleLightBMesh.material = poleLightMaterial
+    }
 )
 
-scene.add(cube)
 
 /**
  * Sizes
@@ -89,6 +119,7 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.outputEncoding = THREE.sRGBEncoding
 
 /**
  * Animate
