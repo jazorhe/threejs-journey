@@ -178,38 +178,38 @@ const tick = () =>
     // }
 
     // Cast a ray from the mouse and handle events
-    raycaster.setFromCamera(mouse, camera)
+    // raycaster.setFromCamera(mouse, camera)
 
-    const objectsToTest = [object1, object2, object3]
-    const intersects = raycaster.intersectObjects(objectsToTest)
+    // const objectsToTest = [object1, object2, object3]
+    // const intersects = raycaster.intersectObjects(objectsToTest)
     
-    if(intersects.length)
-    {
-        if(!currentIntersect)
-        {
-            console.log('mouse enter')
-        }
+    // if(intersects.length)
+    // {
+    //     if(!currentIntersect)
+    //     {
+    //         console.log('mouse enter')
+    //     }
 
-        currentIntersect = intersects[0]
-    }
-    else
-    {
-        if(currentIntersect)
-        {
-            console.log('mouse leave')
-        }
+    //     currentIntersect = intersects[0]
+    // }
+    // else
+    // {
+    //     if(currentIntersect)
+    //     {
+    //         console.log('mouse leave')
+    //     }
         
-        currentIntersect = null
-    }
+    //     currentIntersect = null
+    // }
 
-    // Update controls
-    controls.update()
+    // // Update controls
+    // controls.update()
 
-    // Render
-    renderer.render(scene, camera)
+    // // Render
+    // renderer.render(scene, camera)
 
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
+    // // Call tick again on the next frame
+    // window.requestAnimationFrame(tick)
 }
 
 tick()
