@@ -72,7 +72,6 @@ const poleLightMaterial = new THREE.MeshBasicMaterial({ color: 0xFFCD54 })
     }
 )
 
-
 /**
  * Sizes
  */
